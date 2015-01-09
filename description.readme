@@ -1,0 +1,15 @@
+Technologies of LinkCutter:
+1) guice + guava as IO
+2) hibernate + hsqldb as storage container
+3) jersey as REST framework
+4) junit + mockito + atunit (I don't find this lib in maven repository, so a put it in libs folder) as test framework
+
+How to run:
+1) mvn clean install
+2) mvn tomcat6:run
+3) go to http://localhost:8080/
+
+Features of LinkCutter:
+1) convert long links to short links (through simple html page + using REST service)
+2) convert articles to simply articles (like http://www.ukeeper.com/) !!! This item should be completed only if i find library or service.
+Actually, we will send a link and after some time we get the link for simplified article. Simplified article will store on our server. Autorization should be done through Facebook.
