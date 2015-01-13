@@ -1,11 +1,12 @@
 package org.linkcutter.impl.dao.impl;
 
-import org.linkcutter.impl.dao.LinkDao;
+import org.linkcutter.impl.dao.LinksDao;
 import org.linkcutter.impl.model.Link;
 
 import java.util.List;
 
 import javax.inject.Provider;
+import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -15,13 +16,19 @@ import com.google.inject.persist.Transactional;
 /**
  * @author Lipatov Nikita
  */
-public class LinkDaoImpl implements LinkDao {
+@Singleton
+public class LinksDaoImpl implements LinksDao {
 
     @Inject
     private Provider<EntityManager> em;
 
     protected EntityManager em() {
         return em.get();
+    }
+
+    @Inject
+    public LinksDaoImpl(Provider<EntityManager> em) {
+        this.em = em;
     }
 
     @Inject
@@ -52,10 +59,16 @@ public class LinkDaoImpl implements LinkDao {
         return em.get().find(Link.class, id);
     }
 
-    public List<Link> findByPath(String path) {
-        return em.get().createQuery("select l from Link l where l.path = :path", Link.class)
-                .setParameter("path", path)
-                .getResultList();
+    public Link findByUrl(String url) {
+        return em.get().createQuery("select l from Link l where l.url = :url", Link.class)
+                .setParameter("url", url)
+                .getSingleResult();
+    }
+
+    public Link findByShortUrl(String shortUrl) {
+        return em.get().createQuery("select l from Link l where l.shortUrl = :shortUrl", Link.class)
+                .setParameter("shortUrl", shortUrl)
+                .getSingleResult();
     }
 
     public List<Link> findAll() {

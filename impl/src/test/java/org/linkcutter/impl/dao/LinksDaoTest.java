@@ -10,9 +10,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.linkcutter.impl.ApplicationInitializer;
-import org.linkcutter.impl.dao.impl.LinkDaoImpl;
+import org.linkcutter.impl.dao.impl.LinksDaoImpl;
 import org.linkcutter.impl.model.Link;
-import org.linkcutter.impl.services.LinkService;
+import org.linkcutter.impl.services.LinksService;
 
 import java.util.List;
 
@@ -21,11 +21,11 @@ import java.util.List;
  */
 @RunWith(AtUnit.class)
 @Container(Container.Option.GUICE)
-public class LinkDaoTest implements Module {
+public class LinksDaoTest implements Module {
 
     @Inject
     @Unit
-    LinkService linkService;
+    LinksService linksService;
 
     public void configure(Binder b) {
         b.bind(String.class).annotatedWith(Names.named("linkcutter.host")).toInstance("http://localhost/");
@@ -35,29 +35,29 @@ public class LinkDaoTest implements Module {
     public void generalLinkDaoTest() {
         Injector injector = Guice.createInjector(new JpaPersistModule("db-manager"));
         injector.getInstance(ApplicationInitializer.class);
-        LinkDao linkDao = injector.getInstance(LinkDaoImpl.class);
+        LinksDao linksDao = injector.getInstance(LinksDaoImpl.class);
 
         // Persist
         Link link1 = new Link();
         link1.setUrl("http://host:8080/somereallylonglink");
-        linkService.cut(link1);
-        linkDao.create(link1);
+        linksService.cut(link1);
+        linksDao.create(link1);
 
         Link link2 = new Link();
         link2.setUrl("http://longhost:/somestuff");
-        linkService.cut(link2);
-        linkDao.create(link2);
+        linksService.cut(link2);
+        linksDao.create(link2);
 
         Link link3 = new Link();
         link3.setUrl("http://longhost:8080/somereallylonglink");
-        linkService.cut(link3);
-        linkDao.create(link3);
+        linksService.cut(link3);
+        linksDao.create(link3);
 
-        Assert.assertNotNull(linkDao.find(link1.getId()));
-        Assert.assertNotNull(linkDao.find(link2.getId()));
-        Assert.assertNotNull(linkDao.find(link3.getId()));
+        Assert.assertNotNull(linksDao.find(link1.getId()));
+        Assert.assertNotNull(linksDao.find(link2.getId()));
+        Assert.assertNotNull(linksDao.find(link3.getId()));
 
-        List<Link> links = linkDao.findAll();
+        List<Link> links = linksDao.findAll();
         Assert.assertEquals(3, links.size());
         for(Link link : links) {
             System.out.println("url = " + link.getUrl());

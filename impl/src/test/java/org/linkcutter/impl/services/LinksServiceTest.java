@@ -20,11 +20,11 @@ import java.net.MalformedURLException;
  */
 @RunWith(AtUnit.class)
 @Container(Container.Option.GUICE)
-public class LinkServiceTest implements Module {
+public class LinksServiceTest implements Module {
 
     @Inject
     @Unit
-    LinkService linkService;
+    LinksService linksService;
 
     /*
      * If your test does implement Module, the module configuration will be
@@ -48,7 +48,7 @@ public class LinkServiceTest implements Module {
         Assert.assertNull(link.getShortUrl());
         Assert.assertNull(link.getCreationDate());
 
-        linkService.cut(link);
+        linksService.cut(link);
 
         Assert.assertNotNull(link.getShortUrl());
         Assert.assertNotNull(link.getCreationDate());

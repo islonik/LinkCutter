@@ -13,12 +13,12 @@ import java.util.Date;
  * @author Lipatov Nikita
  */
 @Singleton
-public class LinkService {
+public class LinksService {
 
     private String host;
 
     @Inject
-    public LinkService(@Named("linkcutter.host")String host) {
+    public LinksService(@Named("linkcutter.host") String host) {
         Preconditions.checkNotNull(host);
         Preconditions.checkArgument(!host.isEmpty());
         this.host = host;
@@ -34,7 +34,7 @@ public class LinkService {
 
     public void cut(Link link) {
         String shortText = generateShortText();
-        String shortPath = host + shortText;
+        String shortPath = host + "/" + shortText;
         link.setShortUrl(shortPath);
         link.setCreationDate(new Date());
     }

@@ -1,7 +1,7 @@
 package org.linkcutter.impl.dao;
 
 import com.google.inject.ImplementedBy;
-import org.linkcutter.impl.dao.impl.LinkDaoImpl;
+import org.linkcutter.impl.dao.impl.LinksDaoImpl;
 import org.linkcutter.impl.model.Link;
 
 import java.util.List;
@@ -9,8 +9,8 @@ import java.util.List;
 /**
  * @author Lipatov Nikita
  */
-@ImplementedBy(LinkDaoImpl.class)
-public interface LinkDao {
+@ImplementedBy(LinksDaoImpl.class)
+public interface LinksDao {
 
     public void create(Link link);
 
@@ -20,7 +20,9 @@ public interface LinkDao {
 
     public Link find(Object id);
 
-    public List<Link> findByPath(String path);
+    public Link findByUrl(String url);
+
+    public Link findByShortUrl(String shortUrl);
 
     public List<Link> findAll();
 }

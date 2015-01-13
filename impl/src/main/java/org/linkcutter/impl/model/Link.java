@@ -13,10 +13,14 @@ public class Link {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "url")
     private String url;
+    @Column(name = "shorturl")
     private String shortUrl;
+    @Column(name = "creationdate")
     private Date creationDate;
 
     public Link() {
