@@ -10,13 +10,13 @@
 3. jersey as REST framework
 4. junit + mockito + atunit (I don't find this lib in maven repository, so a put it in libs folder) as test framework
 
-## How to run ¹1:
+## How to run - v.1:
 1. from IDE - run EmulationServer
 2. go to http://localhost:8080/
 
 ###### or
 
-## How to run ¹2:
+## How to run - v.2:
 1. mvn clean install
 2. mvn tomcat6:run
 3. go to http://localhost:8080/
