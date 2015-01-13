@@ -1,44 +1,30 @@
 package org.linkcutter.impl.services;
 
-import atunit.AtUnit;
-import atunit.Container;
-import atunit.Unit;
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.google.inject.Binder;
-import com.google.inject.Inject;
-import com.google.inject.Module;
-import com.google.inject.name.Names;
+import org.junit.runners.MethodSorters;
 import org.linkcutter.impl.model.Link;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.net.MalformedURLException;
 
 /**
  * @author Lipatov Nikita
  */
-@RunWith(AtUnit.class)
-@Container(Container.Option.GUICE)
-public class LinksServiceTest implements Module {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/application.xml" })
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+public class LinksServiceTest {
 
-    @Inject
-    @Unit
-    LinksService linksService;
-
-    /*
-     * If your test does implement Module, the module configuration will be
-     * merged with any bindings created by AtUnit.
-     *
-     * This example is fairly contrived. Typically you'll just want to inject
-     * mock objects into your @Unit object, and AtUnit can do that without
-     * making you explicitly configure the bindings yourself. See
-     * ExampleGuiceAndJMockTest for an example.
-     *
-     */
-    public void configure(Binder b) {
-        b.bind(String.class).annotatedWith(Names.named("linkcutter.host")).toInstance("http://localhost/");
-    }
+    @Autowired
+    private LinksService linksService;
 
     @Test
     public void simpleTest() throws MalformedURLException {

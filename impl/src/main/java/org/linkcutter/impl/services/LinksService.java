@@ -1,26 +1,25 @@
 package org.linkcutter.impl.services;
 
-import com.google.common.base.Preconditions;
-import com.google.inject.name.Named;
 import org.linkcutter.impl.model.Link;
 import org.linkcutter.impl.utils.SymbolGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.Date;
 
 /**
  * @author Lipatov Nikita
  */
-@Singleton
+@Component
 public class LinksService {
 
     private String host;
 
-    @Inject
-    public LinksService(@Named("linkcutter.host") String host) {
-        Preconditions.checkNotNull(host);
-        Preconditions.checkArgument(!host.isEmpty());
+    @Autowired
+    public LinksService(@Value("${linkcutter.host}")String host) {
+        //Preconditions.checkNotNull(host);
+        //Preconditions.checkArgument(!host.isEmpty());
         this.host = host;
     }
 

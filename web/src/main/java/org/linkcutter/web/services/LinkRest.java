@@ -3,9 +3,11 @@ package org.linkcutter.web.services;
 import org.linkcutter.impl.dao.LinksDao;
 import org.linkcutter.impl.model.Link;
 import org.linkcutter.impl.services.LinksService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -18,16 +20,12 @@ import java.net.URL;
  * @author Lipatov Nikita
  */
 @Path("links")
-@Singleton
+@Component
 public class LinkRest {
+    @Autowired
     private LinksDao linksDao;
+    @Autowired
     private LinksService linksService;
-
-    @Inject
-    public LinkRest(LinksDao linksDao, LinksService linksService) {
-        this.linksDao = linksDao;
-        this.linksService = linksService;
-    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

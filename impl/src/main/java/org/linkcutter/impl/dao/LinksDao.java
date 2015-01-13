@@ -1,7 +1,5 @@
 package org.linkcutter.impl.dao;
 
-import com.google.inject.ImplementedBy;
-import org.linkcutter.impl.dao.impl.LinksDaoImpl;
 import org.linkcutter.impl.model.Link;
 
 import java.util.List;
@@ -9,7 +7,6 @@ import java.util.List;
 /**
  * @author Lipatov Nikita
  */
-@ImplementedBy(LinksDaoImpl.class)
 public interface LinksDao {
 
     public void create(Link link);

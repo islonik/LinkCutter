@@ -1,41 +1,37 @@
 package org.linkcutter.impl.dao;
 
-import atunit.AtUnit;
-import atunit.Container;
-import atunit.Unit;
-import com.google.inject.*;
-import com.google.inject.name.Names;
-import com.google.inject.persist.jpa.JpaPersistModule;
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.linkcutter.impl.ApplicationInitializer;
-import org.linkcutter.impl.dao.impl.LinksDaoImpl;
+import org.junit.runners.MethodSorters;
 import org.linkcutter.impl.model.Link;
 import org.linkcutter.impl.services.LinksService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
 /**
  * @author Lipatov Nikita
  */
-@RunWith(AtUnit.class)
-@Container(Container.Option.GUICE)
-public class LinksDaoTest implements Module {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/application.xml" })
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+public class LinksDaoTest {
 
-    @Inject
-    @Unit
-    LinksService linksService;
+    @Autowired
+    private LinksDao linksDao;
 
-    public void configure(Binder b) {
-        b.bind(String.class).annotatedWith(Names.named("linkcutter.host")).toInstance("http://localhost/");
-    }
+    @Autowired
+    private LinksService linksService;
 
     @Test
     public void generalLinkDaoTest() {
-        Injector injector = Guice.createInjector(new JpaPersistModule("db-manager"));
-        injector.getInstance(ApplicationInitializer.class);
-        LinksDao linksDao = injector.getInstance(LinksDaoImpl.class);
 
         // Persist
         Link link1 = new Link();
